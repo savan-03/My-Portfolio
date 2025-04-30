@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Expense Tracker</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="brand">ExpenseTracker</div>
+                <ul class="nav-links">
+                    <li><a href="#" class="nav-link" data-target="dashboard">Dashboard</a></li>
+                    <li><a href="#" class="nav-link" data-target="expenses">Expenses</a></li>
+                    <li><a href="#" class="nav-link" data-target="budget">Budget</a></li>
+                    <li><a href="#" class="nav-link" data-target="reports">Reports</a></li>
+                    <li><a href="#" class="nav-link" data-target="profile">Profile</a></li>
+                </ul>
+                <div id="auth-buttons" class="auth-buttons">
+                    <a href="#" class="btn btn-outline">Login</a>
+                    <a href="#" class="btn">Register</a>
+                </div>
+                <button id="logout-btn" class="btn btn-danger btn-logout">Logout</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Authentication Container -->
+            <div id="auth-container" class="auth-container">
+                <div class="auth-tabs">
+                    <div id="login-tab" class="auth-tab active">Login</div>
+                    <div id="register-tab" class="auth-tab">Register</div>
+                </div>
+                
+                <!-- Login Form -->
+                <form id="login-form" class="auth-form active">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-block">Login</button>
+                </form>
+                
+                <!-- Register Form -->
+                <form id="register-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="register-name">Full Name</label>
+                        <input type="text" id="register-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <input type="password" id="register-password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-block">Register</button>
+                </form>
+            </div>
+            
+            <!-- Dashboard Container -->
+            <div id="dashboard" class="dashboard">
+                <div class="dashboard-header">
+                    <h1 class="dashboard-title">Dashboard</h1>
+                    <button id="add-expense-btn" class="btn">Add Expense</button>
+                </div>
+                
+                <!-- Dashboard Cards -->
+                <div class="cards-container">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Total Expenses</h2>
+                            <div class="card-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                        </div>
+                        <div id="total-expenses" class="card-value">₹0.00</div>
+                        <div class="card-subtitle">Current Month</div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Total Budget</h2>
+                            <div class="card-icon">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                        </div>
+                        <div id="total-budget" class="card-value">₹0.00</div>
+                        <div class="card-subtitle">Current Month</div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Budget Status</h2>
+                            <div class="card-icon">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                        </div>
+                        <div id="budget-status" class="card-value">₹0.00 Remaining</div>
+                        <div class="card-subtitle">Current Month</div>
+                    </div>
+                </div>
+                
+                <!-- Expense Overview Chart -->
+                <div class="chart-container">
+                    <h2 class="card-title">Expense Overview</h2>
+                    <canvas id="overview-chart" width="800" height="300"></canvas>
+                </div>
+                
+                <!-- Recent Expenses -->
+                <div class="expense-list-container">
+                    <div class="expense-list-header">
+                        <h2 class="card-title">Recent Expenses</h2>
+                        <a href="#" class="btn btn-outline nav-link" data-target="expenses">View All</a>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-expenses">
+                            <!-- Expenses will be added dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Expenses Container -->
+            <div id="expenses-container" class="expenses-container">
+                <div class="dashboard-header">
+                    <h1 class="dashboard-title">Expenses</h1>
+                    <button id="add-expense-btn-2" class="btn">Add Expense</button>
+                </div>
+                
+                <div class="expense-list-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="expenses-list">
+                            <!-- Expenses will be added dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Budget Container -->
+            <div id="budget-container" class="budget-container">
+                <div class="dashboard-header">
+                    <h1 class="dashboard-title">Budget Planning</h1>
+                    <button id="add-budget-btn" class="btn">Add Budget</button>
+                </div>
+                
+                <div id="budgets-list" class="budgets-list">
+                    <!-- Budgets will be added dynamically -->
+                </div>
+            </div>
+            
+            <!-- Reports Container -->
+            <div id="reports-container" class="reports-container">
+                <div class="dashboard-header">
+                    <h1 class="dashboard-title">Expense Reports</h1>
+                </div>
+                
+                <!-- Report Filters -->
+                <div class="report-filters">
+                    <div class="filter-group">
+                        <label for="report-period">Time Period</label>
+                        <select id="report-period" class="form-control">
+                            <option value="month">This Month</option>
+                            <option value="quarter">This Quarter</option>
+                            <option value="year">This Year</option>
+                            <option value="custom">Custom Range</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group" id="custom-date-range" style="display: none;">
+                        <div class="form-group">
+                            <label for="report-start-date">Start Date</label>
+                            <input type="date" id="report-start-date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="report-end-date">End Date</label>
+                            <input type="date" id="report-end-date" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="report-category">Category</label>
+                        <select id="report-category" class="form-control">
+                            <option value="all">All Categories</option>
+                            <!-- Categories will be added dynamically -->
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <button id="generate-report-btn" class="btn">Generate Report</button>
+                    </div>
+                </div>
+                
+                <!-- Charts Grid -->
+                <div class="charts-grid">
+                    <!-- Monthly Expenses Chart -->
+                    <div class="chart-container">
+                        <h2 class="card-title">Monthly Expenses</h2>
+                        <canvas id="monthly-expenses-chart" width="400" height="300"></canvas>
+                    </div>
+                    
+                    <!-- Category Trends Chart -->
+                    <div class="chart-container">
+                        <h2 class="card-title">Category Trends</h2>
+                        <canvas id="category-trends-chart" width="400" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Profile Container -->
+            <div id="profile-container" class="profile-container">
+                <div class="dashboard-header">
+                    <h1 class="dashboard-title">Profile</h1>
+                </div>
+                
+                <div class="profile-card">
+                    <div class="form-group">
+                        <label for="profile-name">Full Name</label>
+                        <input type="text" id="profile-name" class="form-control" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-email">Email</label>
+                        <input type="email" id="profile-email" class="form-control" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-joined">Joined Date</label>
+                        <input type="text" id="profile-joined" class="form-control" readonly>
+                    </div>
+                    <button id="edit-profile-btn" class="btn">Edit Profile</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Add Expense Modal -->
+    <div id="expense-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Add Expense</h2>
+                <button id="close-expense-modal" class="close-modal">&times;</button>
+            </div>
+            <form id="expense-form">
+                <div class="form-group">
+                    <label for="expense-description">Description</label>
+                    <input type="text" id="expense-description" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="expense-amount">Amount</label>
+                    <input type="number" id="expense-amount" class="form-input" placeholder="Amount in ₹" required>
+                </div>
+                <div class="form-group">
+                    <label for="expense-category">Category</label>
+                    <select id="expense-category" class="form-control" required>
+                        <!-- Categories will be added dynamically -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="expense-date">Date</label>
+                    <input type="date" id="expense-date" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-block">Save Expense</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Add Budget Modal -->
+    <div id="budget-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Add Budget</h2>
+                <button id="close-budget-modal" class="close-modal">&times;</button>
+            </div>
+            <form id="budget-form">
+                <div class="form-group">
+                    <label for="budget-category">Category</label>
+                    <select id="budget-category" class="form-control" required>
+                        <!-- Categories will be added dynamically -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="budget-amount">Amount</label>
+                    <input type="number" id="budget-amount" class="form-input" placeholder="Amount in ₹" required>
+                </div>
+                <button type="submit" class="btn btn-block">Save Budget</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Custom Charts JS -->
+    <script src="js/charts.js"></script>
+    <!-- Chart Integration -->
+    <script src="js/chart-integration.js"></script>
+    <!-- Main JS -->
+    <script src="js/app.js"></script>
+</body>
+</html> 

@@ -1,0 +1,244 @@
+/* Responsive Styles for Expense Tracker */
+
+/* Mobile First Approach */
+@media screen and (max-width: 480px) {
+    .container {
+        padding: 0 10px;
+    }
+    
+    .navbar {
+        flex-direction: column;
+        padding: 10px 0;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 15px;
+    }
+    
+    .nav-links li {
+        margin: 5px 0;
+        margin-left: 0;
+        text-align: center;
+    }
+    
+    .auth-buttons {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 15px;
+    }
+    
+    .auth-buttons .btn {
+        width: 100%;
+        margin: 5px 0;
+        margin-left: 0;
+        text-align: center;
+    }
+    
+    .btn-logout {
+        width: 100%;
+        margin-left: 0;
+    }
+    
+    .dashboard-header {
+        flex-direction: column;
+    }
+    
+    .dashboard-title {
+        margin-bottom: 15px;
+    }
+    
+    .cards-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .expense-list-header {
+        flex-direction: column;
+    }
+    
+    .expense-list-header .btn {
+        margin-top: 10px;
+    }
+    
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .report-filters {
+        flex-direction: column;
+    }
+    
+    .filter-group {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    /* Table responsiveness */
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    
+    tr {
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    
+    td {
+        border: none;
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+    }
+    
+    td:before {
+        position: absolute;
+        left: 12px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+    }
+    
+    /* Labels for mobile view */
+    .expenses-container td:nth-of-type(1):before { content: "Description"; }
+    .expenses-container td:nth-of-type(2):before { content: "Category"; }
+    .expenses-container td:nth-of-type(3):before { content: "Amount"; }
+    .expenses-container td:nth-of-type(4):before { content: "Date"; }
+    .expenses-container td:nth-of-type(5):before { content: "Actions"; }
+    
+    #recent-expenses td:nth-of-type(1):before { content: "Description"; }
+    #recent-expenses td:nth-of-type(2):before { content: "Category"; }
+    #recent-expenses td:nth-of-type(3):before { content: "Amount"; }
+    #recent-expenses td:nth-of-type(4):before { content: "Date"; }
+    
+    .table-actions {
+        justify-content: flex-start;
+    }
+    
+    /* Modal responsiveness */
+    .modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+}
+
+/* Tablet View */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    .navbar {
+        flex-direction: column;
+        padding: 15px 0;
+    }
+    
+    .nav-links {
+        margin-top: 15px;
+    }
+    
+    .auth-buttons {
+        margin-top: 15px;
+    }
+    
+    .cards-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .report-filters {
+        flex-wrap: wrap;
+    }
+    
+    .filter-group {
+        min-width: 45%;
+    }
+}
+
+/* Laptops and Desktops */
+@media screen and (min-width: 769px) and (max-width: 1200px) {
+    .cards-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .charts-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Large Screens */
+@media screen and (min-width: 1201px) {
+    .container {
+        max-width: 1200px;
+    }
+    
+    .cards-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .charts-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #5e72e4;
+        --secondary-color: #2dce89;
+        --danger-color: #f5365c;
+        --warning-color: #fb6340;
+        --info-color: #11cdef;
+        --light-color: #2a2e35;
+        --dark-color: #ffffff;
+        --background-color: #1a1c23;
+        --text-color: #e2e8f0;
+        --card-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.3);
+    }
+    
+    body {
+        background-color: var(--background-color);
+        color: var(--text-color);
+    }
+    
+    .header, .card, .auth-container, .chart-container, 
+    .expense-list-container, .budget-card, .profile-card,
+    .report-filters, .modal-content {
+        background-color: #242731;
+        color: var(--text-color);
+    }
+    
+    .form-control {
+        background-color: #2a2e35;
+        color: var(--text-color);
+        border-color: #4a5568;
+    }
+    
+    .nav-links a {
+        color: var(--text-color);
+    }
+    
+    th {
+        color: #a0aec0;
+    }
+    
+    td {
+        border-bottom-color: #4a5568;
+    }
+    
+    .action-btn {
+        color: var(--text-color);
+    }
+} 
